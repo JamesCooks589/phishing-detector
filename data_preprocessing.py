@@ -5,25 +5,41 @@ import numpy as np
 import re
 import nltk
 import joblib
+import glob
+import os
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 nltk.download('stopwords')
 from nltk.corpus import stopwords
 
-# --- Load and Inspect Data ---
-df = pd.read_csv('data/CEAS_08.csv', encoding='latin1')  # Adjust encoding if needed
-df = df[['subject', 'body', 'label']]  # Keep relevant columns
-df.dropna(inplace=True)
+# --- Load and merge all labeled datasets ---
+data_files = glob.glob('data/*.csv')
+dfs = []
 
-# --- Combine subject + body into one field ---
+for file in data_files:
+    df = pd.read_csv(file, encoding='latin1', low_memory=False)
+    if {'subject', 'body', 'label'}.issubset(df.columns):
+        df = df[['subject', 'body', 'label']].dropna()
+        dfs.append(df)
+        print(f"✅ Loaded {os.path.basename(file)}: {len(df)} rows")
+    else:
+        print(f"❌ Skipped {os.path.basename(file)}: Missing required columns")
+
+# --- Combine all dataframes ---
+if not dfs:
+    raise ValueError("No valid labeled datasets found.")
+df = pd.concat(dfs, ignore_index=True)
+print(f"\n📊 Combined dataset size: {len(df)} emails")
+
+# --- Combine subject + body ---
 df['text'] = df['subject'].fillna('') + ' ' + df['body'].fillna('')
 
 # --- Clean text ---
 def clean_text(text):
     text = text.lower()
-    text = re.sub(r"http\S+", "", text)  # remove URLs
-    text = re.sub(r"[^a-z\s]", "", text)  # remove non-letters
+    text = re.sub(r"http\S+", "", text)  # Remove URLs
+    text = re.sub(r"[^a-z\s]", "", text)  # Remove non-alphabetical characters
     text = re.sub(r"\s+", " ", text).strip()
     return text
 
@@ -47,4 +63,4 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 joblib.dump((X_train, X_test, y_train, y_test), 'models/train_test_split.pkl')
 joblib.dump(vectorizer, 'models/tfidf_vectorizer.pkl')
 
-print("✅ Preprocessing complete. Data and vectorizer saved.")
+print("\n✅ Preprocessing complete. Combined data and vectorizer saved.")

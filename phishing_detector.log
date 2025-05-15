@@ -1,0 +1,43 @@
+2025-05-15 09:20:55,174 - ERROR - Error ID: 649463 - Context: unexpected
+2025-05-15 09:20:55,174 - ERROR - Error Type: AttributeError
+2025-05-15 09:20:55,174 - ERROR - Error Details: st.session_state has no attribute "client". Did you forget to initialize it? More info: https://docs.streamlit.io/develop/concepts/architecture/session-state#initialization
+2025-05-15 09:20:55,197 - ERROR - Traceback: Traceback (most recent call last):
+  File "C:\Users\oplay\AppData\Local\Programs\Python\Python313\Lib\site-packages\streamlit\runtime\state\session_state.py", line 454, in __getitem__
+    return self._getitem(widget_id, key)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\oplay\AppData\Local\Programs\Python\Python313\Lib\site-packages\streamlit\runtime\state\session_state.py", line 499, in _getitem
+    raise KeyError
+KeyError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\oplay\AppData\Local\Programs\Python\Python313\Lib\site-packages\streamlit\runtime\state\session_state_proxy.py", line 130, in __getattr__
+    return self[key]
+           ~~~~^^^^^
+  File "C:\Users\oplay\AppData\Local\Programs\Python\Python313\Lib\site-packages\streamlit\runtime\state\session_state_proxy.py", line 101, in __getitem__
+    return get_session_state()[key]
+           ~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\oplay\AppData\Local\Programs\Python\Python313\Lib\site-packages\streamlit\runtime\state\safe_session_state.py", line 96, in __getitem__
+    return self._state[key]
+           ~~~~~~~~~~~^^^^^
+  File "C:\Users\oplay\AppData\Local\Programs\Python\Python313\Lib\site-packages\streamlit\runtime\state\session_state.py", line 456, in __getitem__
+    raise KeyError(_missing_key_error_message(key))
+KeyError: 'st.session_state has no key "client". Did you forget to initialize it? More info: https://docs.streamlit.io/develop/concepts/architecture/session-state#initialization'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\COS720 Project\phishing-detector\app.py", line 203, in show_detector_tab
+    'client_ip': hashlib.sha256(st.session_state.client.id.encode()).hexdigest()[:8]
+                                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\oplay\AppData\Local\Programs\Python\Python313\Lib\site-packages\streamlit\runtime\state\session_state_proxy.py", line 132, in __getattr__
+    raise AttributeError(_missing_attr_error_message(key))
+AttributeError: st.session_state has no attribute "client". Did you forget to initialize it? More info: https://docs.streamlit.io/develop/concepts/architecture/session-state#initialization
+
+2025-05-15 09:23:51,751 - INFO - Analysis completed successfully: {'timestamp': '2025-05-15T09:23:51.751652', 'prediction': np.int64(0), 'text_hash': '9f86d081', 'session_id': '711ae589'}
+2025-05-15 09:24:02,601 - INFO - Analysis completed successfully: {'timestamp': '2025-05-15T09:24:02.600971', 'prediction': np.int64(1), 'text_hash': '56bcdb72', 'session_id': '711ae589'}
+2025-05-15 09:24:17,450 - INFO - Analysis completed successfully: {'timestamp': '2025-05-15T09:24:17.450365', 'prediction': np.int64(1), 'text_hash': 'e08b8176', 'session_id': '711ae589'}
+2025-05-15 09:24:22,320 - INFO - Analysis completed successfully: {'timestamp': '2025-05-15T09:24:22.320918', 'prediction': np.int64(1), 'text_hash': 'e08b8176', 'session_id': '711ae589'}
+2025-05-15 09:24:29,757 - INFO - Analysis completed successfully: {'timestamp': '2025-05-15T09:24:29.757196', 'prediction': np.int64(1), 'text_hash': '35978f65', 'session_id': '711ae589'}
+2025-05-15 09:25:58,095 - INFO - Analysis completed successfully: {'timestamp': '2025-05-15T09:25:58.095376', 'prediction': np.int64(1), 'text_hash': '35978f65', 'session_id': '41cc22c6'}

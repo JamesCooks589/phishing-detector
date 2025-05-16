@@ -21,6 +21,6 @@ def get_top_phishing_words(n=20):
 
 # Test run
 if __name__ == "__main__":
-    print("🔍 Top words most indicative of phishing emails:\n")
+    print("[INFO] Top words most indicative of phishing emails:\n")
     for word, weight in get_top_phishing_words(20):
         print(f"{word}: {weight}")

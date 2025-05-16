@@ -12,7 +12,7 @@ for file in data_files:
 
     if 'label' in df.columns:
         label_counts = df['label'].value_counts()
-        print("📊 Label Distribution:")
+        print("Label Distribution:")
         print(label_counts)
         print("% Breakdown:")
         print((label_counts / label_counts.sum()) * 100)

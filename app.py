@@ -107,7 +107,13 @@ tab1, tab2 = st.tabs(["🔍 Detector", "📚 How it Works"])
 
 # === TAB 1: DETECTOR ===
 with tab1:
-    st.warning("This is a demo system. Do not upload sensitive content.")
+    st.warning("""
+    🔒 **Security Notice:**
+    - Do not upload sensitive or confidential information
+    - This is a public demo tool - use at your own risk
+    - We do not store any submitted emails
+    - Rate limits apply to prevent abuse
+    """)
     col1, col2 = st.columns(2)
     with col1:
         email_text = st.text_area("Paste email content here:", height=200)
